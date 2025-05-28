@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="TIIF-Bench: How Does Your T2I Model Follow Your Instructions?">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TIIF-Bench: How Does Your T2I Model Follow Your Instructions?</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  <link rel="icon" type="image/x-icon" href="static/images/logo.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/logo.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    .easygreen { color: #009c4b; }
+    .middleyellow { color: #f25922; }
+    .hardred { color: #d8383a; }
+  </style>
+
+</head>
+<body>
+
+<!-- Paper Title and Author -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <span class='tiifbench'>Perceive Anything Model</span></h1>
+          <h2 class="subtitle is-3 has-text-centered">PAM: Recognize, Explain, Caption, and Segment<br>Anything in Images and Videos</h2> 
+          <div class="is-size-5 publication-authors">
+            <span class="author-block corresponding-author">
+              <a href="https://afeng-x.github.io/">Weifeng Lin</a><sup>*1</sup>,
+            </span>
+            <span class="author-block corresponding-author">
+              <a href="https://a113n-w3i.github.io/">Xinyu Wei</a><sup>*2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Ruichuan An</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Tianhe Ren</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Tingwei Chen</a><sup>1</sup>,
+            </span>
+            
+            <span class="author-block">
+              <a href="">Renrui Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Ziyi Guo</a><sup>1</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              <a href="">Wentao Zhang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Lei Zhang</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Hongsheng Li</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+            <span class="author-block" style="margin-right: 15px;"><sup>1</sup>The Chinese University of Hong Kong</span>
+            <span class="author-block" style="margin-left: 15px;"><sup>2</sup>Peking University</span>
+          </div>
+          <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+            <span class="author-block" style="margin-right: 15px;"><sup>3</sup>The University of Hong Kong</span>
+            <span class="author-block" style="margin-left: 15px;"><sup>4</sup>Hong Kong Polytechnic University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Arxiv Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Gradio Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                  <a href=""
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <img src="static/images/demo.svg" alt="Model" style="width: 20px; height: 20px;">
+                      </span>
+                      <span>Demo</span>
+                  </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block" style="margin-right: 15px;">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Data Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>PAM-Data</span>
+                  </a>
+              </span>
+              <!-- MDVP-Bench Link. -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/datasets/Afeng-x/Draw-and-Understand/tree/main/MDVP-bench"
+                   class="external-link button is-normal is-rounded is-dark">
+                   <span class="icon">
+                    <img src="static/images/wrench.svg" alt="Gradio Logo" style="width: 18px; height: 18px;">
+                    </span>
+                  <span>MVDP-Bench</span>
+                  </a>
+              </span> -->
+              <!-- Model Link -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/Afeng-x/SPHINX-V-Model"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <img src="static/images/model.svg" alt="Model" style="width: 22px; height: 22px;">
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+            
+            
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- three img caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Image Caption
+        </h2>
+        
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.5);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          <div class="columns is-centered">
+            <!-- First GIF -->
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/img1/dog.gif" alt="Dog GIF" style="width: 100%; height: auto; border-radius: 8px;">
+              </div>
+            </div>
+            
+            <!-- Second GIF -->
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/img2/airplane.gif" alt="Airplane GIF" style="width: 100%; height: auto; border-radius: 8px;">
+              </div>
+            </div>
+            
+            <!-- Third GIF -->
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/img3/turtle.gif" alt="Turtle GIF" style="width: 100%; height: auto; border-radius: 8px;">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- four video caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Video Caption
+        </h2>
+        
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.8);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 三列布局：竖屏-横屏堆叠-竖屏 -->
+          <div class="columns is-centered">
+            <!-- First Vertical Video -->
+            <div class="column is-3">
+              <div class="content">
+                <div style="height: 400px; overflow: hidden;">
+                  <img src="static/videos/vertical-video1/vertical-video1-merged.gif" alt="Vertical Video 1" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover; object-position: top;">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Middle Column: Two Horizontal Videos Stacked -->
+            <div class="column is-4">
+              <div class="content">
+                <!-- First Horizontal Video -->
+                <div style="margin-bottom: 25px;">
+                  <img src="static/videos/hori-video1/hori-video1-merged.gif" alt="Horizontal Video 1" style="width: 100%; height: auto; border-radius: 2px;">
+                </div>
+                
+                <!-- Second Horizontal Video -->
+                <div>
+                  <img src="static/videos/hori-video2/hori-video2-merged.gif" alt="Horizontal Video 2" style="width: 100%; height: auto; border-radius: 2px;">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Second Vertical Video -->
+            <div class="column is-3">
+              <div class="content">
+                <div style="height: 400px; overflow: hidden;">
+                  <img src="static/videos/vertical-video2/vertical-video2-merged.gif" alt="Vertical Video 2" style="width: 100%; height: 100%; border-radius: 2px; object-fit: cover; object-position: top;">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- three video caption samples -->
+<section class="section" style="min-height: 420px; padding-bottom: 10px; margin-top: 280px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.5);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 三列布局：竖屏-横屏堆叠-竖屏 -->
+          <div class="columns is-centered">
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/sam2-demo1/sam2-demo1-merged.gif" alt="SAM2 Demo 1" style="width: 100%; height: auto; border-radius: 2px;">
+              </div>
+            </div>
+            
+            <!-- Second Horizontal Video -->
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/sam2-demo2/sam2-demo2-merged.gif" alt="SAM2 Demo 2" style="width: 100%; height: auto; border-radius: 2px;">
+              </div>
+            </div>
+            
+            <!-- Third Horizontal Video -->
+            <div class="column is-4">
+              <div class="content">
+                <img src="static/videos/sam2-demo3/sam2-demo3-merged.gif" alt="SAM2 Demo 3" style="width: 100%; height: auto; border-radius: 2px;">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- one streaming caption sample -->
+<section class="section" style="min-height: 300px; padding-bottom: 10px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Streaming Caption
+        </h2>
+        
+        <!-- 应用缩放变换使整体变大 -->
+        <div style="transform:scale(1.4);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow:visible;
+                    margin-top:20px;
+                    margin-bottom:0px;">
+          
+          <!-- 单个超宽横屏视频 -->
+          <div class="columns is-centered">
+            <div class="column is-10">
+              <div class="content">
+                <img src="static/videos/stream-demo/stream-merged.gif" alt="Streaming Caption Demo" style="width: 100%; height: auto; border-radius: 4px;">
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Introduction -->
+<section class="section" style="margin-top: 320px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            The rapid advancements of Text-to-Image (T2I) models have ushered in a new phase of AI-generated content, marked by their growing ability to interpret and follow user instructions.
+            However, existing T2I model evaluation benchmarks fall short in <span class='drawback-red'>limited prompt diversity and complexity</span>, as well as <span class='drawback-red'>coarse evaluation metrics</span>, making it difficult to evaluate the fine-grained alignment performance between textual instructions and generated images.
+          </p>
+          <p>
+            To remedy these gaps, we introduce <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> (<b>T</b>ext-to-<b>I</b>mage <b>I</b>nstruction <b>F</b>ollowing <b>Bench</b>mark), a benchmark built for the fine-grained assessment of T2I models.
+            We extract <b>ten concept pools</b> from existing benchmarks and define <b>36 novel combinations</b> of them with <b>six compositional prompt dimensions</b>. Each dimension incorporates multiple attributes, 
+            ensuring that every prompt is semantically distinct and exhibits diverse sentence structures. 
+            Additionally, two important dimensions previously overlooked, <i><b>text rendering</b></i> and <i><b>style control</b></i>, 
+            are introduced as dedicated categories in our <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span>.
+            We also collect 100 <i><b>real-world designer-level</b></i> prompts that encode rich human priors and aesthetic judgment.
+            For each prompt, we provide <b>a concise version and an extended version</b> to assess the sensitivity of T2I models to prompt length.
+            In total, the benchmark offers: 
+            <p>\(6_{compositional} \times (300_{short}+300_{long})+1_{text\_generation}\times (300_{short}+300_{long})+1_{style\_control}\times(300_{short}+300_{long})+1_{designer}\times (100_{short}+100_{long})=5000\) prompts.</p>
+          </p>
+          <p>
+            In evaluation, <b>each prompt is accompanied by a set of attribute-specific yes/no questions</b>, enabling VLMs (We offer GPT-4o and QwenVL2.5-72B as judge models) to judge at a more granular level than a coarse score. 
+            Text rendering accuracy is further quantified by the proposed <b>GNED</b> metric.
+          </p>
+          <p>
+            Our findings indicate that, with the exception of GPT-4o, both open-source and closed-source models <b>perform relatively well on prompts involving object attributes</b> (<i>>e.g.</i>, color, texture, shape),
+            yet <b>consistently struggle with spatial tasks and reasoning tasks</b> such as 2D/3D layouts and logical instructions.
+            Moreover, models that achieve higher overall scores on <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> tend to be more robust to prompt length, whereas lower-performing models exhibit greater sensitivity.
+            This suggests <b>a positive correlation between a model's instruction comprehension and its image generation quality</b>.
+            Finally, although <b>AR-based models</b> generally produce lower-fidelity images, their <b>instruction-following performance is comparable to that of advanced diffusion-based models</b>, highlighting the inherent advantage of autoregressive architectures in semantic understanding.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Leaderboard -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-12">
+        <h2 class="title is-3 has-text-centered">
+          Leaderboard
+        </h2>
+        <p class="has-text-centered" style="position:relative; z-index:10;">
+          Evaluated by {
+          <label class="radio" style="margin-right:5px; cursor:pointer;">
+            <input type="radio"
+                   name="evaluator"
+                   id="gpt4o-radio"
+                   checked
+                   onclick="document.getElementById('table-frame').src='table_gpt4o.html';">
+            <b>GPT-4o</b>
+          </label>
+          /
+          <label class="radio" style="margin-left:5px; cursor:pointer;">
+            <input type="radio"
+                   name="evaluator"
+                   id="qwen-radio"
+                   onclick="document.getElementById('table-frame').src='table_qwen.html';">
+            <b>QwenVL2.5-72B</b>
+          </label>
+          }
+          on the <b>testmini</b> subset of <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span>
+        </p>
+        
+        <!-- 保持原 iframe 容器，如需仍用负 margin 可继续使用 -->
+        <div style="transform:scale(1.4);
+                    transform-origin:top center;
+                    width:100%;
+                    overflow-x:hidden;
+                    margin-top:-50px;">
+          <iframe src="table_gpt4o.html"
+                  width="100%"
+                  height="820px"
+                  style="border:none; overflow:hidden;"
+                  id="table-frame"></iframe>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Construction -->
+<section class="section" style="margin-top: 200px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-12">
+        <h2 class="title is-3"><img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> Construction</h2>
+        <div class="content has-text-justified">
+          <p>
+            We first group the prompts in existing benchmarks based on their semantics and leverage GPT-4o to extract the underlying 
+            <i>object–attribute/relation pairs</i>, forming a set of dimension-specific concept pools. In total, we construct <b>10 concept pools</b>
+             from existing benchmarks, categorized them into <b>three groups</b>, as summarized in Table:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/concept-pools.jpg" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p>
+            Building upon concept pools, we generate prompts by randomly combining attributes from each pool, 
+            leveraging GPT-4o to compose them into natural instructions. We define <b>36 distinct combinations</b>, 
+            each paired with a dedicated meta-prompt to guide GPT-4o to assemble instructions. 
+            Prompts that combine elements drawn from a <i>single</i> concept-pool group are classified as 
+            <b class="easygreen">Basic Following</b>. In contrast, <b class="middleyellow">Advanced Following</b> prompts intertwine elements taken from 
+            <i>different</i> concept-pool groups, yielding more intricate compositions.
+          </p>
+          
+          <p>
+            To extend evaluation beyond conventional instruction-following skills, we introduce three novel dimensions:
+          </p>
+          
+          <p>
+            (i) <b>Text rendering</b> evaluates a model's ability to accurately reproduce complex typographic elements, 
+            using prompts sourced from the <i>Lex-Art</i> corpus.
+          </p>
+          
+          <p>
+            (ii) <b>Style control</b> assesses the model's capacity to adhere to high-level artistic directives, 
+            with prompts manually curated from leading AIGC creator communities.
+          </p>
+          
+          <p>
+            (iii) <b>Designer-level</b> prompts involve complex instructions that incorporate practical constraints 
+            and domain-specific knowledge, also collected through manual annotation.
+          </p>
+          
+          <p>
+            The text rendering and style control dimensions are included in the <b class="middleyellow">Advanced Following</b> set, 
+            while the designer-level prompts constitute the <b class="hardred">Designer Level Following</b> set.
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/concept-combination.jpg" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+          <p>
+            Finally, for each generated prompt, we leverage GPT-4o to construct a corresponding long-form 
+            variant by expanding the content through natural language paraphrasing and stylistic elaboration, 
+            while faithfully preserving its original semantics. The whole pipeline can be summarized as:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/data-pipeline.png" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX" style="margin-top: 175px;">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      @misc{
+      }
+    </code></pre>
+  </div>
+</section>
+
+
+<!-- Affiliation -->
+<section class="section" style="margin-top: 0px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <div class="content">
+          <!-- 第一排图片 -->
+          <div class="columns is-centered is-mobile" style="margin-bottom: 30px;">
+            <div class="column is-narrow" style="padding: 10px 10px;">
+              <img src="static/images/polyu.jpg" alt="Hong Kong Polytechnic University" style="height: 60px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/syu.jpg" alt="Sun Yat-sen University" style="height: 60px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/thu.png" alt="Tsinghua University" style="height: 60px;">
+            </div>
+            <div class="column is-narrow" style="padding: 10px 10px;">
+              <img src="static/images/oppo.png" alt="OPPO Y-Lab" style="height: 60px;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+<script>
+	bulmaCarousel.attach('#results-carousel', {
+		slidesToScroll: 1,
+		slidesToShow: 1,
+        autoplay: true, 
+        autoplaySpeed: 3000,
+        loop: true
+	});
+</script>
+
+</body>
+</html>
