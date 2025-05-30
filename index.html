@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="TIIF-Bench: How Does Your T2I Model Follow Your Instructions?">
+        content="PAM: Recognize, Explain, Caption, and Segment Anything in Images and Videos">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TIIF-Bench: How Does Your T2I Model Follow Your Instructions?</title>
+  <title>PAM: Recognize, Explain, Caption, and Segment Anything in Images and Videos</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -194,25 +194,25 @@
                     overflow:visible;
                     margin-top:20px;
                     margin-bottom:0px;">
-          <div class="columns is-centered">
+          <div class="columns is-centered is-vcentered">
             <!-- First GIF -->
             <div class="column is-4">
               <div class="content">
-                <img src="static/videos/img1/dog.gif" alt="Dog GIF" style="width: 100%; height: auto; border-radius: 8px;">
+                <img src="static/videos/img1/img1_caption.gif" alt="Dog GIF" style="width: 100%; height: auto; border-radius: 8px;">
               </div>
             </div>
             
             <!-- Second GIF -->
             <div class="column is-4">
               <div class="content">
-                <img src="static/videos/img2/airplane.gif" alt="Airplane GIF" style="width: 100%; height: auto; border-radius: 8px;">
+                <img src="static/videos/img2/img2_caption.gif" alt="Airplane GIF" style="width: 100%; height: auto; border-radius: 8px;">
               </div>
             </div>
             
             <!-- Third GIF -->
             <div class="column is-4">
               <div class="content">
-                <img src="static/videos/img3/turtle.gif" alt="Turtle GIF" style="width: 100%; height: auto; border-radius: 8px;">
+                <img src="static/videos/img3/img3_caption.gif" alt="Turtle GIF" style="width: 100%; height: auto; border-radius: 8px;">
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@
 </section>
 
 <!-- four video caption samples -->
-<section class="section" style="min-height: 420px; padding-bottom: 10px;">
+<section class="section" style="min-height: 420px; padding-bottom: 10px; margin-top: 40px;">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-12">
@@ -255,7 +255,7 @@
             <div class="column is-4">
               <div class="content">
                 <!-- First Horizontal Video -->
-                <div style="margin-bottom: 25px;">
+                <div style="margin-bottom: 50px;">
                   <img src="static/videos/hori-video1/hori-video1-merged.gif" alt="Horizontal Video 1" style="width: 100%; height: auto; border-radius: 2px;">
                 </div>
                 
@@ -321,7 +321,7 @@
 </section>
 
 <!-- one streaming caption sample -->
-<section class="section" style="min-height: 300px; padding-bottom: 10px;">
+<section class="section" style="min-height: 300px; padding-bottom: 10px; margin-top: -80px;">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-12">
@@ -341,7 +341,7 @@
           <div class="columns is-centered">
             <div class="column is-10">
               <div class="content">
-                <img src="static/videos/stream-demo/stream-merged.gif" alt="Streaming Caption Demo" style="width: 100%; height: auto; border-radius: 4px;">
+                <img src="static/videos/stream-demo/stream-caption.gif" alt="Streaming Caption Demo" style="width: 100%; height: auto; border-radius: 4px;">
               </div>
             </div>
           </div>
@@ -354,37 +354,35 @@
 </section>
 
 <!-- Introduction -->
-<section class="section" style="margin-top: 320px;">
+<section class="section" style="margin-top: 170px;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-six-fifths">
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
           <p>
-            The rapid advancements of Text-to-Image (T2I) models have ushered in a new phase of AI-generated content, marked by their growing ability to interpret and follow user instructions.
-            However, existing T2I model evaluation benchmarks fall short in <span class='drawback-red'>limited prompt diversity and complexity</span>, as well as <span class='drawback-red'>coarse evaluation metrics</span>, making it difficult to evaluate the fine-grained alignment performance between textual instructions and generated images.
+            While powerful vision foundation models like Segment Anything Model 2 (SAM 2) excel at 
+            object segmentation in images and videos, how to achieve deep semantic understanding of 
+            these regions remains a critical challenge.
+            To address this, we introduce <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b><span class='tiifbench'>Perceive Anything Model (PAM)</span></b>, 
+            an end-to-end vision-language model that efficiently integrates SAM 2 and 
+            Large Language Models (LLMs), 
+            enabling the simultaneous segmentation of objects while generating diverse semantic outputs for each region in both images and videos. 
+            Specifically, <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b> 
+            introduces a <b>Semantic Perceiver</b> that acts as a crucial bridge. 
+            This component efficiently utilizes rich intermediate features from the SAM 2 backbone, thereby incorporating general vision, localization, and semantic priors into the visual tokens, which are subsequently fed into LLMs for understanding.
           </p>
           <p>
-            To remedy these gaps, we introduce <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> (<b>T</b>ext-to-<b>I</b>mage <b>I</b>nstruction <b>F</b>ollowing <b>Bench</b>mark), a benchmark built for the fine-grained assessment of T2I models.
-            We extract <b>ten concept pools</b> from existing benchmarks and define <b>36 novel combinations</b> of them with <b>six compositional prompt dimensions</b>. Each dimension incorporates multiple attributes, 
-            ensuring that every prompt is semantically distinct and exhibits diverse sentence structures. 
-            Additionally, two important dimensions previously overlooked, <i><b>text rendering</b></i> and <i><b>style control</b></i>, 
-            are introduced as dedicated categories in our <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span>.
-            We also collect 100 <i><b>real-world designer-level</b></i> prompts that encode rich human priors and aesthetic judgment.
-            For each prompt, we provide <b>a concise version and an extended version</b> to assess the sensitivity of T2I models to prompt length.
-            In total, the benchmark offers: 
-            <p>\(6_{compositional} \times (300_{short}+300_{long})+1_{text\_generation}\times (300_{short}+300_{long})+1_{style\_control}\times(300_{short}+300_{long})+1_{designer}\times (100_{short}+100_{long})=5000\) prompts.</p>
+            To ensure <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>'s 
+            robustness in understanding multi-dimensional semantic granularity, we develop a dedicated data augmentation and refinement pipeline, 
+            which yields 🔥<b>1.8M high-quality image data and 0.6M video data</b>.
           </p>
           <p>
-            In evaluation, <b>each prompt is accompanied by a set of attribute-specific yes/no questions</b>, enabling VLMs (We offer GPT-4o and QwenVL2.5-72B as judge models) to judge at a more granular level than a coarse score. 
-            Text rendering accuracy is further quantified by the proposed <b>GNED</b> metric.
-          </p>
-          <p>
-            Our findings indicate that, with the exception of GPT-4o, both open-source and closed-source models <b>perform relatively well on prompts involving object attributes</b> (<i>>e.g.</i>, color, texture, shape),
-            yet <b>consistently struggle with spatial tasks and reasoning tasks</b> such as 2D/3D layouts and logical instructions.
-            Moreover, models that achieve higher overall scores on <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> tend to be more robust to prompt length, whereas lower-performing models exhibit greater sensitivity.
-            This suggests <b>a positive correlation between a model's instruction comprehension and its image generation quality</b>.
-            Finally, although <b>AR-based models</b> generally produce lower-fidelity images, their <b>instruction-following performance is comparable to that of advanced diffusion-based models</b>, highlighting the inherent advantage of autoregressive architectures in semantic understanding.
+            Experimental results demonstrate that, even with a lightweight 1.5/3B LLM as the semantic decoder, 
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+            achieves strong performance across a diverse range of tasks, including category prediction, brief and detailed regional captioning, 
+            video captioning, and streaming region captioning. Furthermore, <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+             exhibits significant inference efficiency, running ⚡️<b>1.2-2.4&times; faster</b> while consuming less GPU memory compared to prior approaches, marking a significant advancement for real-world applications.
           </p>
         </div>
       </div>
@@ -392,114 +390,84 @@
   </div>
 </section>
 
-<!-- Leaderboard -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-12">
-        <h2 class="title is-3 has-text-centered">
-          Leaderboard
-        </h2>
-        <p class="has-text-centered" style="position:relative; z-index:10;">
-          Evaluated by {
-          <label class="radio" style="margin-right:5px; cursor:pointer;">
-            <input type="radio"
-                   name="evaluator"
-                   id="gpt4o-radio"
-                   checked
-                   onclick="document.getElementById('table-frame').src='table_gpt4o.html';">
-            <b>GPT-4o</b>
-          </label>
-          /
-          <label class="radio" style="margin-left:5px; cursor:pointer;">
-            <input type="radio"
-                   name="evaluator"
-                   id="qwen-radio"
-                   onclick="document.getElementById('table-frame').src='table_qwen.html';">
-            <b>QwenVL2.5-72B</b>
-          </label>
-          }
-          on the <b>testmini</b> subset of <img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span>
+<!-- Footnote for Introduction -->
+<div class="container is-max-desktop" style="margin-top: -40px;">
+  <div class="columns is-centered">
+    <div class="column is-six-fifths">
+      <div class="content has-text-left">
+        <p style="font-size: 0.75em; color: #666; font-style: italic;">
+          Perceive Anything is also an abbreviation for Pallas Athena. 
+          In Homer's epics, Athena and her sacred owl are known for their piercing gaze, capable of perceiving all things in the world. 
+          Similarly, our PAM segments every object in any visual medium and simultaneously outputs its semantic meaning.
         </p>
-        
-        <!-- 保持原 iframe 容器，如需仍用负 margin 可继续使用 -->
-        <div style="transform:scale(1.4);
-                    transform-origin:top center;
-                    width:100%;
-                    overflow-x:hidden;
-                    margin-top:-50px;">
-          <iframe src="table_gpt4o.html"
-                  width="100%"
-                  height="820px"
-                  style="border:none; overflow:hidden;"
-                  id="table-frame"></iframe>
-        </div>
-        
       </div>
     </div>
   </div>
-</section>
+</div>
 
 
-<!-- Construction -->
-<section class="section" style="margin-top: 200px;">
+<!-- PAM -->
+<section class="section" style="margin-top: 40px;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-12">
-        <h2 class="title is-3"><img src="static/images/logo_transparent_bg.png" alt="Icon" style="height: 1.4em; vertical-align: middle; margin-right: -0.2em;"> <span class='tiifbench'>TIIF-Bench</span> Construction</h2>
+        <h2 class="title is-3"><img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <span class='tiifbench'>Perceive Anything Model</span></h2>
         <div class="content has-text-justified">
           <p>
-            We first group the prompts in existing benchmarks based on their semantics and leverage GPT-4o to extract the underlying 
-            <i>object–attribute/relation pairs</i>, forming a set of dimension-specific concept pools. In total, we construct <b>10 concept pools</b>
-             from existing benchmarks, categorized them into <b>three groups</b>, as summarized in Table:
+            Given visual prompts such as points, boxes, or masks to specify a region of interest, <b>Perceive Anything Model (PAM)</b> can simultaneously:
+          </p>
+          <p>
+            <i>(1) Segment:</i> Generate precise segmentation masks for the indicated region within an image or throughout a video.
+          </p>
+          <p>
+            <i>(2) Recognize:</i> Identify the category of the designated region or object.
+          </p>
+          <p>
+            <i>(3) Explain:</i> Provide clear explanations of the region's or object's definition, attributes, and functionality within its given context.
+          </p>
+          <p>
+            <i>(4) Caption:</i> Generate concise or detailed captions for the region within images, videos, and video streams.
+          </p>
+
+          <h4 class="title is-4" style="margin-top: 20px;">Overall Architecture</h4>
+          <p>
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>'s architecture can be divided into two parts. 
+            The first part is the SAM 2 framework, which comprises an image encoder, a prompt encoder, memory modules, and a mask decoder. This framework provides robust spatio-temporal visual feature extraction and segmentation capabilities. 
+            The second part is a semantic decoder, which is based on a large language model (LLM).
+            Crucially, our proposed Semantic Perceiver acts as a bridge, effectively leverages intermediate visual features from the SAM 2 backbone and results in visual tokens. These tokens are subsequently processed by the LLM to generate diverse semantic outputs.
+            For decoding, PAM features a parallel design for its mask and semantic decoders, enabling the simultaneous segmentation of objects while generating diverse semantic outputs of them.
+            The whole architecture is shown in the following figure:
           </p>
           <div class="has-text-centered" style="margin: 30px 0;">
-            <img src="static/images/concept-pools.jpg" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-          </div>
-          <p>
-            Building upon concept pools, we generate prompts by randomly combining attributes from each pool, 
-            leveraging GPT-4o to compose them into natural instructions. We define <b>36 distinct combinations</b>, 
-            each paired with a dedicated meta-prompt to guide GPT-4o to assemble instructions. 
-            Prompts that combine elements drawn from a <i>single</i> concept-pool group are classified as 
-            <b class="easygreen">Basic Following</b>. In contrast, <b class="middleyellow">Advanced Following</b> prompts intertwine elements taken from 
-            <i>different</i> concept-pool groups, yielding more intricate compositions.
-          </p>
-          
-          <p>
-            To extend evaluation beyond conventional instruction-following skills, we introduce three novel dimensions:
-          </p>
-          
-          <p>
-            (i) <b>Text rendering</b> evaluates a model's ability to accurately reproduce complex typographic elements, 
-            using prompts sourced from the <i>Lex-Art</i> corpus.
-          </p>
-          
-          <p>
-            (ii) <b>Style control</b> assesses the model's capacity to adhere to high-level artistic directives, 
-            with prompts manually curated from leading AIGC creator communities.
-          </p>
-          
-          <p>
-            (iii) <b>Designer-level</b> prompts involve complex instructions that incorporate practical constraints 
-            and domain-specific knowledge, also collected through manual annotation.
-          </p>
-          
-          <p>
-            The text rendering and style control dimensions are included in the <b class="middleyellow">Advanced Following</b> set, 
-            while the designer-level prompts constitute the <b class="hardred">Designer Level Following</b> set.
-          </p>
-          <div class="has-text-centered" style="margin: 30px 0;">
-            <img src="static/images/concept-combination.jpg" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="static/images/pam-pipeline.jpg" alt="pam-pipeline" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           </div>
 
+          <h4 class="title is-4" style="margin-top: 20px;">Semantic Perceiver</h4>
+
           <p>
-            Finally, for each generated prompt, we leverage GPT-4o to construct a corresponding long-form 
-            variant by expanding the content through natural language paraphrasing and stylistic elaboration, 
-            while faithfully preserving its original semantics. The whole pipeline can be summarized as:
+            The architecture of Semantic Perceiver mirrors the SAM 2 Feature Fusing module (S2-FFM), employing a lightweight two-layer transformer with self-attention, cross-attention, and a point-wise MLP. 
+            Specifically, it receives two primary inputs:
+            enhanced mask tokens from S2-FFM, which incorporate IoU and prompt tokens information and serve as unique identifiers for precise mask generation;
+            and updated image embeddings after S2-FFM, capturing general visual context and implicit features enriched through interaction with mask tokens. 
+          </p>
+          <p>
+            Then, we concatenate N<sub>s</sub> learnable semantic tokens with the enhanced mask tokens.Finally, through further attention mechanisms within the Semantic Perceiver, we can fetch visual tokens rich in both general visual and object-level localization information.
+            The Semantic Perceiver is illustrated in the following figure:
           </p>
           <div class="has-text-centered" style="margin: 30px 0;">
-            <img src="static/images/data-pipeline.png" alt="Concept Pools" style="max-width: 90%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="static/images/semantic-perceiver-pipeline.png" alt="Semantic Perceiver" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           </div>
+
+          <h4 class="title is-4" style="margin-top: 20px;">Streaming Video Encode and Decode</h4>
+          <p>
+            Building upon the progressive introduction of historical information per frame via memory modules in SAM 2, we propose a straightforward strategy for region-level streaming video captioning without adding complex components.
+            Specifically, an additional 2 &times 2 pixel shuffle operation is applied to the last frame of each video clip.
+            This leads to a greater density of visual tokens, improving the preservation of historical visual information. 
+            These tokens subsequently act as the initial frame for the next video clip and are processed by the LLM together with the remaining frames of that clip.
+            This approach ensures that each clip is processed consistently and effectively passes crucial historical information from the previous clip into the next video clip.
+            Additionally, we incorporate the previous textual description into the prompt to further augment contextual history, enhancing the model's comprehension and descriptive accuracy for ongoing events.
+            In practice, our framework allows users to flexibly specify decode timestamps. Upon reaching a designated timestamp, the model describes the specified region within the temporal interval between the current timestamp and the previous one.
+          </p>
 
         </div>
       </div>
@@ -507,7 +475,135 @@
   </div>
 </section>
 
+<!-- DATA -->
+<section class="section" style="margin-top: 40px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-12">
+        <h2 class="title is-3"><img src="static/images/pam-data-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <span class='tiifbench'>PAM Data</span></h2>
+        <div class="content has-text-justified">
+          <p>
+            To enhance PAM's comprehensive visual perception capabilities, we develop a robust data refinement and augmentation pipeline to curate a high-quality training dataset. This dataset is distinguished by three key features: 
+          </p>
+          <p>
+            <b>(1) Broad-ranging Semantic Granularities.</b> It provides diverse visual semantic annotations spanning from coarse-level (categories, definitions, contextual functionalities) to fine-grained (detailed descriptions).
+          </p>
+          <p>
+            <b>(2) Regional Streaming Caption Annotations.</b> The first dataset to curate annotations specifically for streaming video region captioning.
+          </p>
+          <p>
+            <b>(3) Bilingual Annotations,</b> supporting both English and Chinese.
+          </p>
+          <p>
+            The construction pipeline is shown in the following figure:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/build_data.png" alt="data-pipeline" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p>
+            All public dataset collection are shown in the following figure:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/data-collection.png" alt="data-pipeline" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
 
+          <h4 class="title is-4" style="margin-top: 20px;">Image Dataset</h4>
+          <p>
+            <b>Regional Recognition, Explanation, and Caption.</b> For regional recognition, we utilize multiple instance detection and segmentation datasets 
+            along with scene text recognition datasets. 
+            In this context, the bounding box or mask serves as the visual prompt input, and the label is treated as the output.
+          </p>
+          <p>
+            To achieve deep, fine-grained visual understanding beyond simple classification, we propose an enhanced pipeline that generates:
+            clear conceptual explanations, contextual functional roles, and detailed descriptions for each specific region.
+            This multi-dimensional information aims to significantly improve user comprehension, particularly for uncommon terms or unfamiliar subjects.
+            To implement this, we utilize the latest VLMs for their extensive world knowledge and powerful visual understanding capabilities to assist refinement.
+            Specifically, we apply the Set of Mask (SoM) method to identify regions of interest, and use original annotations as context to guide models to produce desired responses, which then undergo manual quality assurance.
+          </p>
+
+          <h4 class="title is-4" style="margin-top: 20px;">Video Dataset</h4>
+          <p>
+            <b>Region-level Video Caption.</b> To extend the model's regional captioning capabilities to video, we collected and analyzed several existing video datasets, including referring detection and segmentation datasets
+            as well as the recent Sa2VA annotations for the SA-V dataset. These datasets, designed for detecting, segmenting, and captioning specific objects in videos based on textual descriptions, often contain descriptions that are overly coarse, simplistic, inaccurate, or predominantly static, neglecting essential temporal details such as object motion, interactions, and state changes throughout the video.
+            To address the existing limitations, we propose the <b>storyboard-driven caption expansion</b> method.
+            This process involves several key stages:
+            <p>
+              <b>(1) Keyframe Sampling:</b> Six keyframes are uniformly extracted from each video.
+            </p>
+            <p>
+              <b>(2) Storyboard Synthesis:</b> These extracted keyframes are combined to form a high-resolution composite image, presented in a storyboard format.
+            </p>
+            <p>
+              <b>(3) Object-Centric Highlighting:</b> Within this composite image, each individual frame specifically highlights the target object using a colored bounding box or mask, implemented by SoM.
+            </p>
+            <p>
+              <b>(4) LLM-Powered Elaboration:</b> Then, using the original annotations as condition, we prompt GPT-4o to generate descriptions that are both refined, detailed and temporally aware. 
+            </p>
+          </p>
+          <p>This multi-frame consolidation is critical as it enhances GPT-4o's contextual comprehension, yielding superior descriptions compared to individual frame analysis.</p>
+
+          <p>
+            <b>Region-level Streaming Video Caption.</b> Beyond describing the entire video, we aim to extend the model's capabilities to a streaming manner.
+            To achieve this, we perform additional augmentation on our refined region-level video caption data.
+            Specifically, we first employ the TRACE-Uni model to segment the input video into multiple distinct events, each demarcated by its temporal boundaries.
+            Subsequently, for each segmented video clip, we apply the same `storyboard-driven' processing method. To generate precise and continuous event descriptions, the GPT-4o input prompt was redesigned to iteratively incorporate the description from the preceding video clip as contextual information for processing the current clip.
+
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experiments -->
+<section class="section" style="margin-top: 40px;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-12">
+        <h2 class="title is-3">Experiments</h2>
+        <div class="content has-text-justified">
+          <p>
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+             provides various semantic granularities informantion and support bilingual outputs:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/img-example.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p>
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+              provides region-level non-streaming and streaming video bilingual caption:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/video-example.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <p>
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+             does well on both img recognition/captioning and video captioning benchmark:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0; margin-bottom: -20px;">
+            <img src="static/images/table1.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <div class="has-text-centered" style="margin: 30px 0; margin-bottom: -20px;">
+            <img src="static/images/table2.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/table3.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+          <p>
+            <img src="static/images/pam-logo.png" alt="Icon" style="height: 1.6em; vertical-align: middle; margin-right: 0.0em;"> <b>PAM</b>
+             also demonstrates superior inference efficiency and requires less GPU memory for both image and video processing, highlighting its suitability for efficient deployment in real-world applications:
+          </p>
+          <div class="has-text-centered" style="margin: 30px 0;">
+            <img src="static/images/efficiency.png" alt="experiments" style="max-width: 100%; height: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="BibTeX" style="margin-top: 175px;">
   <div class="container is-max-desktop content">
@@ -527,18 +623,18 @@
       <div class="column is-six-fifths">
         <div class="content">
           <!-- 第一排图片 -->
-          <div class="columns is-centered is-mobile" style="margin-bottom: 30px;">
-            <div class="column is-narrow" style="padding: 10px 10px;">
-              <img src="static/images/polyu.jpg" alt="Hong Kong Polytechnic University" style="height: 60px;">
+          <div class="columns is-centered is-mobile" style="margin-bottom: 30px; align-items: center;">
+            <div class="column is-narrow" style="padding: 10px 20px;">
+              <img src="static/images/cuhk.png" alt="cuhk" style="height: 110px;">
             </div>
             <div class="column is-narrow" style="padding: 10px 30px;">
-              <img src="static/images/syu.jpg" alt="Sun Yat-sen University" style="height: 60px;">
+              <img src="static/images/pku.png" alt="pku" style="height: 75px;">
             </div>
             <div class="column is-narrow" style="padding: 10px 30px;">
-              <img src="static/images/thu.png" alt="Tsinghua University" style="height: 60px;">
+              <img src="static/images/hku.jpg" alt="hku" style="height: 110px;">
             </div>
-            <div class="column is-narrow" style="padding: 10px 10px;">
-              <img src="static/images/oppo.png" alt="OPPO Y-Lab" style="height: 60px;">
+            <div class="column is-narrow" style="padding: 10px 30px;">
+              <img src="static/images/polyu.png" alt="polyu" style="height: 110px;">
             </div>
           </div>
         </div>
